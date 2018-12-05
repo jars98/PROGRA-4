@@ -45,5 +45,10 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3307/venta_moviles?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
+    <mapping resource="modelo/entidad/Movimientos.hbm.xml"/>
+    <mapping resource="modelo/entidad/Marca.hbm.xml"/>
+    <mapping resource="modelo/entidad/Modelo.hbm.xml"/>
+    <mapping resource="modelo/entidad/Usuario.hbm.xml"/>
+    <mapping resource="modelo/entidad/Stock.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

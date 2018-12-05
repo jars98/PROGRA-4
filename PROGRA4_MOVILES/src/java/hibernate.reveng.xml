@@ -42,8 +42,8 @@ Contributor(s):
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="venta_moviles"/>
   <table-filter match-name="marca"/>
-  <table-filter match-name="movimientos"/>
-  <table-filter match-name="stock"/>
-  <table-filter match-name="modelo"/>
   <table-filter match-name="usuario"/>
+  <table-filter match-name="modelo"/>
+  <table-filter match-name="stock"/>
+  <table-filter match-name="movimientos"/>
 </hibernate-reverse-engineering>

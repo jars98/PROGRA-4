@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-dic-2018 22:25:22 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.entidad.Stock" table="stock" catalog="venta_moviles" optimistic-lock="version">
+        <id name="idmovil" type="java.lang.Integer">
+            <column name="idmovil" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="marca" class="modelo.entidad.Marca" fetch="select">
+            <column name="idmarca" not-null="true" />
+        </many-to-one>
+        <many-to-one name="modelo" class="modelo.entidad.Modelo" fetch="select">
+            <column name="idmodelo" not-null="true" />
+        </many-to-one>
+        <property name="costo" type="big_decimal">
+            <column name="costo" precision="16" not-null="true" />
+        </property>
+        <property name="precioVenta" type="big_decimal">
+            <column name="precio_venta" precision="16" not-null="true" />
+        </property>
+        <property name="DIngreso" type="date">
+            <column name="d_ingreso" length="10" not-null="true" />
+        </property>
+        <property name="cantidad" type="int">
+            <column name="cantidad" not-null="true" />
+        </property>
+        <property name="estado" type="boolean">
+            <column name="estado" not-null="true" />
+        </property>
+        <set name="movimientoses" table="movimientos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idmovil" not-null="true" />
+            </key>
+            <one-to-many class="modelo.entidad.Movimientos" />
+        </set>
+    </class>
+</hibernate-mapping>
