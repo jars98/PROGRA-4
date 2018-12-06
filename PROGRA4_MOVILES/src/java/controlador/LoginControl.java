@@ -1,25 +1,56 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import java.io.Serializable;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import modelo.dao.UsuarioDao;
+import modelo.entidad.Usuario;
+// import org.apache.commons.codec.digest.DigestUtils;
+// import org.apache.commons.codec.digest.DigestUtils;
 
-/**
- *
- * @author Ismael
- */
-@Named(value = "loginControl")
-@Dependent
-public class LoginControl {
+@ManagedBean
+@SessionScoped
+public class LoginControl implements Serializable {
 
-    /**
-     * Creates a new instance of LoginControl
-     */
+    private Usuario usuario;
+
     public LoginControl() {
+        this.usuario = new Usuario();
     }
-    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String login() {
+        FacesMessage mensaje = null;
+        UsuarioDao ud = new UsuarioDao();
+        // para encriptar clave
+        // usuario.setPassword(DigestUtils.md5Hex(usuario.getPassword()));
+        usuario = ud.login(usuario);
+        if (usuario != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+            mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@ ", this.usuario.getNombre() );
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            return "/vista/inicio.xhtml";
+        } else {
+            mensaje = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error de Acceso", "Usuario o Clave incorrecta");
+            FacesContext.getCurrentInstance().addMessage(null, mensaje);
+            usuario = new Usuario();
+            return "";
+        }
+    }
+
+    public String cerrarSession() {
+        HttpSession httpSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        httpSession.invalidate();
+        return "/login";
+    }
 }

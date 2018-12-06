@@ -1,25 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import modelo.dao.StockDao;
+import modelo.entidad.Stock;
 
-/**
- *
- * @author Ismael
- */
-@Named(value = "stockControl")
-@Dependent
+@ManagedBean
+@ViewScoped
 public class StockControl {
 
-    /**
-     * Creates a new instance of StockControl
-     */
+    private List<Stock> listaStock;
+    private Stock stock;
+
     public StockControl() {
     }
-    
+
+    public List<Stock> getListaStock() {
+        StockDao ud = new StockDao();
+        listaStock = ud.listarStock();
+        return listaStock;
+    }
+
+    public void setListaStock(List<Stock> listaStock) {
+        this.listaStock = listaStock;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
+    public void limpiarStock() {
+        stock = new Stock();
+    }
+
+    public void agregarStock() {
+        StockDao ud = new StockDao();
+        ud.agregar(stock);
+    }
+
+    public void modificarStock() {
+        StockDao ud = new StockDao();
+        ud.modificar(stock);
+        limpiarStock();
+    }
+
+    public void eliminarStock() {
+        StockDao ud = new StockDao();
+        ud.eliminar(stock);
+        limpiarStock();
+    }
 }
