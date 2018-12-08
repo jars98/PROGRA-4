@@ -6,11 +6,14 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
     <ui:define name="content">
         <h3>LISTADO DE USUARIOS</h3>
         <h:form>
             <p:commandButton value="Agregar Usuario" actionListener="#{usuarioControl.limpiarUsuario()}" oncomplete="PF('dialogoAgregar').show();" update=":formAgregar"/>
+            <p:separator/>
+        </h:form>
+        <h:form>
+            <p:commandButton icon="ui-icon-print" value="Imprimir"  action="#{reporteUsuarios.generarReporte()}" ajax="false" onclick="target = '_blank'"/>
             <p:separator/>
         </h:form>
         <h:form id="formListado">
@@ -60,9 +63,10 @@
 
                     <p:outputLabel value="Fecha Creacion:"/>
                     <p:calendar value="#{usuarioControl.usuario.fechaIngreso}" pattern="dd/MM/yyyy" locale="es"  disabled="true"/>
-                    <br/>
+                    
                 </p:panelGrid>
-                <p:commandButton  value="Guardar" actionListener="#{usuarioControl.agregarUsuario()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoAgregar').hide();"/>
+                <br/>
+                <p:commandButton style="margin-left: 40px; margin-right: 30px;" value="Guardar" actionListener="#{usuarioControl.agregarUsuario()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoAgregar').hide();"/>
                 <p:commandButton  value="Cancelar" onclick="PF('dialogoAgregar').hide();"/>
             </p:dialog>
         </h:form>
@@ -83,20 +87,19 @@
 
                     <p:outputLabel value="Fecha Creacion"/>
                     <p:calendar value="#{usuarioControl.usuario.fechaIngreso}" pattern="dd/MM/yyyy" locale="es"  disabled="true"/>
-                    <br/>
+                    
                 </p:panelGrid>
-                <p:commandButton  value="Guardar" actionListener="#{usuarioControl.modificarUsuario()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoModificar').hide();"/>
+                <br/>
+                <p:commandButton style="margin-left: 40px; margin-right: 30px;" value="Guardar" actionListener="#{usuarioControl.modificarUsuario()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoModificar').hide();"/>
                 <p:commandButton  value="Cancelar" onclick="PF('dialogoModificar').hide();"/>
             </p:dialog>
         </h:form>
 
         <h:form id="formEliminar">
-            <p:dialog id="dlgEliminar" header="Eliminar Usuario" widgetVar="dialogoEliminar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
-                <h:outputText value="Desea eliminar este registro?"/>
-                <br/>
-                <p:commandButton  value="Si" actionListener="#{usuarioControl.eliminarUsuario()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoEliminar').hide();"/>
+            <p:confirmDialog id="dlgEliminar" header="Eliminar Usuario" message="Desea eliminar este registro?" widgetVar="dialogoEliminar" showEffect="fade" hideEffect="explode" >
+                <p:commandButton style="margin-left: 40px; margin-right: 30px;" value="Si" actionListener="#{usuarioControl.eliminarUsuario()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoEliminar').hide();"/>
                 <p:commandButton  value="No" onclick="PF('dialogoEliminar').hide();"/>
-            </p:dialog>
+            </p:confirmDialog>
         </h:form>
     </ui:define>
 

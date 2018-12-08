@@ -42,7 +42,7 @@
                     <p:inputText value="#{marcaControl.marca.nombre}"/>
 
                 </p:panelGrid>
-                <p:commandButton  value="Guardar" actionListener="#{marcaControl.agregarMarca()}" update=":formListado:tablaMarcas" oncomplete="PF('dialogoAgregar').hide();"/>
+                <p:commandButton style="margin-left: 40px; margin-right: 30px;" value="Guardar" actionListener="#{marcaControl.agregarMarca()}" update=":formListado:tablaMarcas" oncomplete="PF('dialogoAgregar').hide();"/>
                 <p:commandButton  value="Cancelar" onclick="PF('dialogoAgregar').hide();"/>
             </p:dialog>
         </h:form>
@@ -54,18 +54,16 @@
                     <p:inputText value="#{marcaControl.marca.nombre}"/>
 
                 </p:panelGrid>
-                <p:commandButton  value="Guardar" actionListener="#{marcaControl.modificarMarca()}" update=":formListado:tablaMarcas" oncomplete="PF('dialogoModificar').hide();"/>
+                <p:commandButton style="margin-left: 40px; margin-right: 30px;" value="Guardar" actionListener="#{marcaControl.modificarMarca()}" update=":formListado:tablaMarcas" oncomplete="PF('dialogoModificar').hide();"/>
                 <p:commandButton  value="Cancelar" onclick="PF('dialogoModificar').hide();"/>
             </p:dialog>
         </h:form>
 
         <h:form id="formEliminar">
-            <p:dialog id="dlgEliminar" header="Eliminar Marca" widgetVar="dialogoEliminar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
-                <h:outputText value="Desea eliminar este registro?"/>
-                <b/>
-                <p:commandButton  value="Si" actionListener="#{marcaControl.eliminarMarca()}" update=":formListado:tablaMarcas" oncomplete="PF('dialogoEliminar').hide();"/>
+            <p:confirmDialog id="dlgEliminar" header="Eliminar Marca" message="Desea eliminar este registro?" widgetVar="dialogoEliminar" showEffect="fade" hideEffect="explode">
+                <p:commandButton style="margin-left: 40px; margin-right: 30px;" value="Si" actionListener="#{marcaControl.eliminarMarca()}" update=":formListado:tablaMarcas" oncomplete="PF('dialogoEliminar').hide();"/>
                 <p:commandButton  value="No" onclick="PF('dialogoEliminar').hide();"/>
-            </p:dialog>
+            </p:confirmDialog>
         </h:form>
     </ui:define>
 </ui:composition>

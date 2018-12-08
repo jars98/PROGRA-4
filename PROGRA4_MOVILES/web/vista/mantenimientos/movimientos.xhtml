@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../plantilla/plantilla.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="content">
+        <h3>MOVIMIENTOS</h3>
+        <h:form>
+            <p:commandButton value="Agregar Movimiento" actionListener="#{movimientosControl.limpiarMovimientos()}" oncomplete="PF('dialogoAgregar').show();" update=":formAgregar"/>
+            <p:separator/>
+        </h:form>
+        <h:form id="formListado">
+            <p:dataTable id="tablaMovimiento" paginator="true" paginatorPosition="bottom" rows="10" var="movimiento" value="#{movimientosControl.listaMovimientoss}" emptyMessage="No existen usuarios">
+                <p:column headerText="CODIGO" style="text-align: center">
+                    <h:outputText value="#{movimiento.idmovimiento}" />
+                </p:column>
+                <p:column headerText="USUARIO">
+                    <h:outputText value="#{movimiento.usuario}"/>
+                </p:column>
+                <p:column headerText="TIPO">
+                    <h:outputText value="#{movimiento.tipo}"/>
+                </p:column>
+                <p:column headerText="STOCK">
+                    <h:outputText value="#{movimiento.stock}"/>
+                </p:column>
+                <p:column headerText="FECHA DE MOVIMIENTO" style="text-align: center">
+                    <h:outputText value="#{movimiento.stock}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="ES"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="MODIFICAR" style="text-align: center">
+                    <p:commandButton icon="ui-icon-pencil" title="Modificar" oncomplete="PF('dialogoModificar').show();" update=":formModificar">
+                        <f:setPropertyActionListener target="#{movimientosControl.movimientos}" value="#{movimientos}"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column headerText="ELIMINAR" style="text-align: center">
+                    <p:commandButton icon="ui-icon-trash" title="Eliminar" oncomplete="PF('dialogoEliminar').show();" update=":formEliminar">
+                        <f:setPropertyActionListener target="#{movimientosControl.movimientos}" value="#{movimientos}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+        <h:form id="formAgregar">
+            <p:dialog id="dlgAgregar" header="Agregar Movimiento" widgetVar="dialogoAgregar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                <p:panelGrid columns="2" style="margin: 0 auto;">
+                    <p:outputLabel value="Usuario:"/>
+                    <p:inputText value="#{movimientosControl.movimientos.idmovimiento}"/>
+               
+                    <p:outputLabel value="Nombre:"/>
+                    <p:inputText value="#{movimientosControl.movimientos.usuario}"/>
+
+                    <p:outputLabel value="Apellido:"/>
+                    <p:inputText value="#{movimientosControl.movimientos.tipo}"/>
+                    
+                     <p:outputLabel value="Password:"/>
+                     <p:inputText type="password" value="#{movimientosControl.movimientos.stock}"/>
+
+                    <p:outputLabel value="Fecha de Movimiento"/>
+                    <p:calendar value="#{movimientosControl.movimientos.fecha}" pattern="dd/MM/yyyy" locale="es"  disabled="true"/>
+                    
+                </p:panelGrid>
+                <br/>
+                <p:commandButton style="margin-left: 40px; margin-right: 30px;" value="Guardar" actionListener="#{movimientosControl.agregarMovimientos()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoAgregar').hide();"/>
+                <p:commandButton  value="Cancelar" onclick="PF('dialogoAgregar').hide();"/>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+
