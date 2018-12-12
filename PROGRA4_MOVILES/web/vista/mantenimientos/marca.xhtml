@@ -13,6 +13,10 @@
             <p:commandButton value="Agregar Marca" actionListener="#{marcaControl.limpiarMarca()}" oncomplete="PF('dialogoAgregar').show();" update=":formAgregar"/>
             <p:separator/>
         </h:form>
+        <h:form>
+            <p:commandButton icon="ui-icon-print" value="Imprimir"  action="#{reporteStock.generarReporte()}" ajax="false" onclick="target = '_blank'"/>
+            <p:separator/>
+        </h:form>
         <h:form id="formListado">
             <p:dataTable id="tablaMarcas" paginator="true" paginatorPosition="bottom" rows="10" var="marca" value="#{marcaControl.listaMarcas}" emptyMessage="No existen usuarios">
                 <p:column headerText="CODIGO" style="text-align: center">
